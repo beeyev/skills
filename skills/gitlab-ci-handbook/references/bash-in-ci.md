@@ -35,11 +35,13 @@ Mental model first; everything else follows from it.
   matters.
 - Each array item in `script:` is echoed to the log and executed; the
   first item exiting non-zero fails the job and skips the remaining items.
-- A `|` multiline block is a single item: only the block's final exit
-  status counts, failures of earlier lines inside the block are ignored
-  (long-standing runner bug,
-  https://gitlab.com/gitlab-org/gitlab-runner/-/issues/25394). Never rely
-  on a multiline block to fail fast on its own; see the preamble below.
+- A `|` multiline block is a single item running under the runner's
+  `set -o errexit` and `set -o pipefail`: a plain failing line aborts the
+  block, but the usual `set -e` blind spots (`&&`/`||` chains, `if`/`while`
+  conditions, `local`/`export var=$(cmd)`) swallow failures. Still start
+  blocks with the preamble below; `-u` is the flag the runner does not set.
+- `$?` does not carry across `script:` items (the runner's trace `echo`
+  overwrites it); check exit status in the same item.
 - YAML eats your syntax before bash sees it: a command containing `: `
   must be quoted whole (`- 'curl --header "Content-Type: application/json" ...'`),
   and commands starting with YAML indicator characters such as `[`, `{`,
@@ -120,9 +122,10 @@ trap 'echo "ERROR: command failed at ${BASH_SOURCE[0]}:${LINENO}: ${BASH_COMMAND
 For what a useful failure message contains beyond the location, see
 `developer-experience.md`.
 
-Inside YAML `|` multiline blocks, set the same flags on the first line;
-the block is one command string and will not fail fast otherwise (see the
-runner bug above):
+Inside YAML `|` multiline blocks, set the same flags on the first line.
+The runner already enables `errexit` and `pipefail` around your script,
+but not `-u`, and spelling the flags out keeps the block correct when it
+is copied into a file or run locally:
 
 ```yaml
 build:image:
