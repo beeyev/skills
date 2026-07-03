@@ -7,7 +7,7 @@ SKILL.md-compatible agents.
 
 | Skill | Description |
 |---|---|
-| [gitlab-handbook](skills/gitlab-handbook/) | GitLab CI/CD knowledge base: `.gitlab-ci.yml` configuration, pipeline optimization, runners, caching, artifacts, and DevOps best practices |
+| [gitlab-ci-handbook](skills/gitlab-ci-handbook/) | GitLab CI/CD knowledge base: `.gitlab-ci.yml` configuration, pipeline optimization, runners, caching, artifacts, and DevOps best practices |
 
 ## Installation
 
@@ -23,7 +23,7 @@ npx skills add beeyev/skills
 Single skill:
 
 ```bash
-npx skills add beeyev/skills --skill gitlab-handbook
+npx skills add beeyev/skills --skill gitlab-ci-handbook
 ```
 
 ### Claude Code plugin
@@ -40,13 +40,13 @@ Copy a skill directory into your agent's skills folder.
 Claude Code:
 
 ```bash
-cp -r skills/gitlab-handbook ~/.claude/skills/
+cp -r skills/gitlab-ci-handbook ~/.claude/skills/
 ```
 
 Codex (also the shared cross-agent location):
 
 ```bash
-cp -r skills/gitlab-handbook ~/.agents/skills/
+cp -r skills/gitlab-ci-handbook ~/.agents/skills/
 ```
 
 ## License

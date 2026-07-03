@@ -1,5 +1,5 @@
 ---
-name: gitlab-handbook
+name: gitlab-ci-handbook
 description: >-
   GitLab CI/CD knowledge base (GitLab 18+). Use whenever the user writes,
   reviews, or debugs GitLab pipelines or .gitlab-ci.yml files: stages,
@@ -12,7 +12,7 @@ metadata:
   source: https://github.com/beeyev/skills
 ---
 
-# GitLab Handbook
+# GitLab CI Handbook
 
 Curated GitLab CI/CD guidance, verified against GitLab 18.x. This file is
 a router: find the topic, read that reference file, then act. Read more

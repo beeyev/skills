@@ -1,4 +1,4 @@
-# Development brief for the `gitlab-handbook` skill
+# Development brief for the `gitlab-ci-handbook` skill
 
 > **This file is not skill content.** It is a standing brief for AI agents
 > (and humans) working on this skill. When asked to "work on the skill" or
