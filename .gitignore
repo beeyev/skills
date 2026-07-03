@@ -1,0 +1,9 @@
+# skill-creator eval workspaces
+*-workspace/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

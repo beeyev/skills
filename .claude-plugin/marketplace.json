@@ -1,0 +1,14 @@
+{
+    "name": "beeyev-skills",
+    "owner": {
+        "name": "Alexander Tebiev",
+        "email": "alexander.tebiev@gmail.com"
+    },
+    "plugins": [
+        {
+            "name": "beeyev-skills",
+            "source": ".",
+            "description": "Agent skills by beeyev: GitLab CI/CD pipelines and more"
+        }
+    ]
+}

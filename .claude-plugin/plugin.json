@@ -1,0 +1,21 @@
+{
+    "name": "beeyev-skills",
+    "description": "Agent skills by beeyev: GitLab CI/CD pipelines and more",
+    "version": "1.0.0",
+    "author": {
+        "name": "Alexander Tebiev",
+        "email": "alexander.tebiev@gmail.com"
+    },
+    "homepage": "https://github.com/beeyev/skills",
+    "repository": "https://github.com/beeyev/skills",
+    "license": "MIT",
+    "keywords": [
+        "skills",
+        "agent-skills",
+        "claude-code",
+        "gitlab",
+        "gitlab-ci",
+        "ci-cd",
+        "pipelines"
+    ]
+}

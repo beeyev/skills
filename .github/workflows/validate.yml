@@ -1,0 +1,28 @@
+name: Validate skills
+
+on:
+  push:
+    branches: [master]
+    paths: ['skills/**']
+  pull_request:
+    paths: ['skills/**']
+  workflow_dispatch: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install skills-ref
+        run: npm install -g skills-ref
+
+      - name: Validate all skills
+        run: |
+          exit_code=0
+          for skill in skills/*/; do
+            echo "::group::Validating ${skill}"
+            skills-ref validate "./${skill}" || exit_code=1
+            echo "::endgroup::"
+          done
+          exit "${exit_code}"

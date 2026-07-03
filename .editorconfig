@@ -1,0 +1,53 @@
+# Alexander Tebiev - https://github.com/beeyev
+# https://gist.github.com/beeyev/da5a065d01a506d0b3d42e794f7aadf9
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# YAML-based files
+[*.yml]
+indent_size = 2
+[*.yaml]
+indent_size = 2
+
+# Markdown & Text files (whitespace is important)
+[*.md]
+indent_size = 4
+trim_trailing_whitespace = false
+[*.markdown]
+indent_size = 4
+trim_trailing_whitespace = false
+[*.mdx]
+indent_size = 2
+trim_trailing_whitespace = false
+[*.txt]
+indent_size = 4
+trim_trailing_whitespace = false
+
+# Makefiles, Caddyfiles, Git configuration
+[Makefile]
+indent_style = tab
+tab_width = 4
+[.gitconfig]
+indent_style = tab
+tab_width = 4
+[.gitconfig.local]
+indent_style = tab
+tab_width = 4
+
+# Shell Scripts (Google Style Guide)
+# https://google.github.io/styleguide/shell.xml#Indentation
+[*.bash]
+indent_size = 2
+[*.sh]
+indent_size = 2
+[*.zsh]
+indent_size = 2

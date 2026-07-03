@@ -1,0 +1,8 @@
+# Alexander Tebiev - https://github.com/beeyev
+* text=auto eol=lf
+
+.github/        export-ignore
+dev/            export-ignore
+.editorconfig   export-ignore
+.gitattributes  export-ignore
+.gitignore      export-ignore
