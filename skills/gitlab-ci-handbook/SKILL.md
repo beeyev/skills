@@ -46,7 +46,17 @@ than one when the task spans topics (most pipeline work needs
 | `references/readability.md` | Naming jobs, stages, variables, or CI files; commenting style; making a pipeline navigable for newcomers |
 | `references/informative-logging.md` | What jobs should echo (versions, decisions) and must never echo (secrets); collapsible log sections; variable masking behavior |
 | `references/developer-experience.md` | Debugging a failed pipeline end-to-end; `workflow:name` pipeline titles; job execution headers; actionable failure messages; surfacing test reports and artifact links in MRs; diagnostic artifacts; reproducing CI failures locally |
-| `references/common-patterns.md` | Concrete recipes: pipeline selection, caching and artifacts, DAGs, Docker builds, environments, downstream and dynamic child pipelines, matrices, auto-cancel and retries, test sharding, checkout strategy, timeout budgeting, validation, and secrets hygiene |
+| `references/common-patterns.md` | Concrete recipes: pipeline selection with `rules` / `workflow:rules` / `rules:changes` (symptoms: duplicate pipelines, job runs twice, job not triggering); caching and artifacts; DAGs with `needs`; Docker builds; environments; downstream and dynamic child pipelines; matrices (`parallel:matrix`); auto-cancel and retries (`interruptible`, `retry`); test sharding; checkout strategy (`GIT_DEPTH`); timeout budgeting; validation; secrets hygiene |
+
+Reviewing or auditing an existing pipeline: read
+`pipeline-structure.md`, `bash-in-ci.md`, and `common-patterns.md` at
+minimum; add the rest when the review touches logs, naming, or
+debuggability. The whole corpus is small; reading all of it for a full
+review is fine and preferred over guessing.
+
+Secrets questions span two files: log exposure and masking in
+`informative-logging.md`, storage and variable hygiene in
+`common-patterns.md`. Read both.
 
 ## Rules of engagement
 
@@ -61,9 +71,9 @@ When writing pipeline YAML or CI bash for a user:
    those conditions. Use intent-revealing names: `bash-in-ci.md`,
    `readability.md`.
 3. For a complete pipeline, define `workflow:rules` deliberately to
-   prevent duplicate or unintended pipeline types. Do not replace an
-   existing workflow when the user only asked for a job or config
-   fragment.
+   prevent duplicate or unintended pipeline types; the verified pattern
+   is in `common-patterns.md`. Do not replace an existing workflow when
+   the user only asked for a job or config fragment.
 4. Prefer a verified pattern from `common-patterns.md` over inventing
    one; adapt names and rules to the project.
 5. If available, validate generated config before handing it over. Use
