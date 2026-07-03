@@ -7,7 +7,7 @@ SKILL.md-compatible agents.
 
 | Skill | Description |
 |---|---|
-| [gitlab-handbook](skills/gitlab-handbook/) | GitLab CI/CD knowledge base for pipelines and `.gitlab-ci.yml` |
+| [gitlab-handbook](skills/gitlab-handbook/) | GitLab CI/CD knowledge base: `.gitlab-ci.yml` configuration, pipeline optimization, runners, caching, artifacts, and DevOps best practices |
 
 ## Installation
 
