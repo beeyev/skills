@@ -666,9 +666,9 @@ lint:advisory:
 - `on_job_failure: all` cancels other running work immediately. Use it only
   when partial pipeline results have no value.
 - Retry transient infrastructure failures and explicit process exit codes,
-  not every `script_failure`. GitLab permits at most two retries. The 18.11
-  docs define `retry:when` and `retry:exit_codes` as separate filters and do
-  not document combining them in one job; use one filter per job.
+  not every `script_failure`. GitLab permits at most two retries.
+  `retry:when` and `retry:exit_codes` can be combined in one job; the job
+  retries when either filter matches.
 - `allow_failure:exit_codes` documents expected non-fatal outcomes while
   keeping unexpected exit codes blocking.
 

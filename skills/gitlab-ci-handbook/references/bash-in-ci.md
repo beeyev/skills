@@ -29,8 +29,8 @@ Mental model first; everything else follows from it.
   `RUNNER_AFTER_SCRIPT_TIMEOUT` (300 seconds by default), and its exit
   code never affects the job result.
   <!-- volatile: re-verify timeout default on version bump --> Since GitLab
-  17.3 (17.0 behind a flag) it also runs when the job is canceled; guard
-  with
+  17.0 it also runs when the job is canceled while `before_script` or
+  `script` was running; guard with
   `- if [ "$CI_JOB_STATUS" == "canceled" ]; then exit 0; fi` if that
   matters.
 - Each array item in `script:` is echoed to the log and executed; the
