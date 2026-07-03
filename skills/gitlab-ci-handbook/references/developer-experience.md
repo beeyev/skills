@@ -153,7 +153,9 @@ When runner behavior is not what the job tests:
 - Run the same `scripts/ci/*.sh` entry point locally and in CI.
 - Assume and document the repository root as the working directory.
 - Keep runner orchestration in YAML and build/test/deploy logic in the
-  extracted script.
+  extracted script. This applies to jobs whose logic warranted extraction
+  in the first place (criteria in `bash-in-ci.md`); a job whose `script:`
+  is a few inline commands is already reproducible by copy-paste.
 - List required variable names. Never put secret values in a printed
   reproduction command.
 - Pin the job image and print relevant tool versions. Document an equivalent

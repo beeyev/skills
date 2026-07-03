@@ -27,6 +27,11 @@ Applied recipes only; mechanics of includes/`extends`/`!reference` live in
 `pipeline-structure.md`. Examples assume Free tier and Linux runners;
 executor requirements are flagged per pattern.
 
+Recipes call `./scripts/ci/<name>.sh` wherever real logic would live.
+That is a placeholder, not a mandate: short wiring commands can stay
+inline in `script:`. The inline-vs-extracted criteria are in
+`bash-in-ci.md`.
+
 ## 1. Branch + MR pipelines without duplicates
 
 **When:** a project enables both branch and merge request pipelines. A

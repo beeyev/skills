@@ -53,6 +53,11 @@ Mental model first; everything else follows from it.
 
 Rule of thumb: **inline is for wiring, files are for logic.**
 
+This is a balance, not a dogma. Extraction buys shellcheck, local runs,
+and reuse, but costs an indirection: the reader must open another file to
+see what the job does. A short inline script that meets the criteria
+below is the better choice, not a shortcut. Do not extract by default.
+
 Keep inline when all of these hold:
 
 - Up to ~5 linear commands, no `if`/loops/functions.

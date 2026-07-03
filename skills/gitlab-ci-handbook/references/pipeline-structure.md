@@ -43,7 +43,7 @@ one file is correct, not lazy.
     deploy.gitlab-ci.yml
 scripts/
   ci/                       # shell scripts extracted from script: blocks
-    deploy.sh
+    deploy.sh               # only when extraction is warranted; see bash-in-ci.md
 ```
 
 Conventions:

@@ -54,9 +54,12 @@ When writing pipeline YAML or CI bash for a user:
 
 1. Follow the structure rules (no god YAML, but don't over-decompose
    tiny pipelines): `pipeline-structure.md`.
-2. Default extracted bash scripts to `set -Eeuo pipefail`; deviate when
-   the script deliberately handles those conditions. Use intent-revealing
-   names: `bash-in-ci.md`, `readability.md`.
+2. Extract bash to `scripts/ci/*.sh` when the criteria in
+   `bash-in-ci.md` say so; short wiring stays inline, it is a balance,
+   not extraction by default. Default extracted scripts to
+   `set -Eeuo pipefail`; deviate when the script deliberately handles
+   those conditions. Use intent-revealing names: `bash-in-ci.md`,
+   `readability.md`.
 3. For a complete pipeline, define `workflow:rules` deliberately to
    prevent duplicate or unintended pipeline types. Do not replace an
    existing workflow when the user only asked for a job or config
