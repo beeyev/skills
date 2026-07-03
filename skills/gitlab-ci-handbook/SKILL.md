@@ -2,14 +2,24 @@
 name: gitlab-ci-handbook
 description: >-
   GitLab CI/CD knowledge base (GitLab 18+). Use whenever the user writes,
-  reviews, or debugs GitLab pipelines or .gitlab-ci.yml files: stages,
-  jobs, rules and workflows, includes and templates, caching and artifacts,
-  environments and deployments, or bash scripts running inside CI jobs,
-  even if they only mention "pipeline" or "CI" in a GitLab context.
+  reviews, optimizes, or debugs GitLab pipelines or .gitlab-ci.yml files:
+  stages, jobs, rules and workflows, includes and templates, caching and
+  artifacts, child and downstream pipelines, environments
+  and deployments, or bash scripts running inside CI jobs, even if they
+  only mention "pipeline" or "CI" in a GitLab context. Covers pipeline
+  structure and refactoring, CI/CD best practices, debugging failed
+  pipelines, and DevOps automation on GitLab.
 license: MIT
 metadata:
   author: Alexander Tebiev
   source: https://github.com/beeyev/skills
+  homepage: https://github.com/beeyev/skills/tree/master/skills/gitlab-ci-handbook
+  version: "1.0.0"
+  category: devops
+  keywords: >-
+    gitlab, gitlab-ci, gitlab-ci.yml, ci-cd, continuous-integration,
+    continuous-deployment, pipeline, pipelines, devops, gitlab-runner,
+    caching, artifacts, docker, deployment, automation, yaml, bash
 ---
 
 # GitLab CI Handbook
