@@ -8,14 +8,15 @@ description: >-
   artifacts, child and downstream pipelines, environments
   and deployments, or bash scripts running inside CI jobs, even if they
   only mention "pipeline" or "CI" in a GitLab context. Covers pipeline
-  structure and refactoring, CI/CD best practices, debugging failed
-  pipelines, CI security, and DevOps automation on GitLab.
+  structure and refactoring, large or unreadable pipeline graphs, CI/CD
+  best practices, debugging failed pipelines, CI security, and DevOps
+  automation on GitLab.
 license: MIT
 metadata:
   author: Alexander Tebiev
   source: https://github.com/beeyev/skills
   homepage: https://github.com/beeyev/skills/tree/master/skills/gitlab-ci-handbook
-  version: "1.1.0"
+  version: "1.2.0"
   category: devops
   keywords: >-
     gitlab, gitlab-ci, gitlab-ci.yml, ci-cd, continuous-integration,
@@ -47,11 +48,12 @@ correctness constraint, read that file too. Do not load unrelated files.
 | Focused question or explanation | The matching topic owner from Routing, plus every safety or correctness reference it names |
 | Create a complete pipeline | `pipeline-structure.md`, `pipeline-selection.md`, `data-flow.md`, `execution-environment.md`, `bash-in-ci.md`, `security.md` |
 | Add or modify a job | `pipeline-selection.md`, then every topic owner from Routing that matches the changed keywords; read `bash-in-ci.md` when adding or changing commands |
-| Full review or audit | `pipeline-structure.md`, `pipeline-selection.md`, `data-flow.md`, `execution-environment.md`, `security.md`, `bash-in-ci.md`, and the validation section in `orchestration.md`; add `readability.md`, `informative-logging.md`, and `developer-experience.md` when reviewing maintainability or diagnostics |
+| Full review or audit | `pipeline-structure.md`, `pipeline-selection.md`, `data-flow.md`, `execution-environment.md`, `security.md`, `bash-in-ci.md`, and the validation section in `orchestration.md`; add `readability.md`, `informative-logging.md`, `developer-experience.md`, and `pipeline-ui.md` when reviewing maintainability, diagnostics, or graph navigability |
 | Pipeline or job missing | `debugging.md`, `pipeline-selection.md`, and the validation section in `orchestration.md` |
 | Runner, image, service, or pre-script failure | `debugging.md`, `execution-environment.md`; add `security.md` for authentication, protected resources, or runner trust |
 | Script failure | `debugging.md`, `bash-in-ci.md`; add `data-flow.md` for cache, artifact, report, or dependency-transfer failures |
 | Optimize a pipeline | `data-flow.md`, `execution-environment.md`, `orchestration.md`, `pipeline-selection.md` |
+| Pipeline graph or UI is too large | `pipeline-ui.md`, `readability.md`; add `orchestration.md` for child pipelines or matrices, `pipeline-selection.md` when reducing conditional topology, and `data-flow.md` before changing `needs` |
 | Deploy or environment work | `execution-environment.md`, `pipeline-selection.md`, `security.md` |
 | Components or includes | `pipeline-structure.md`, `security.md`, and the validation section in `orchestration.md` |
 | Downstream, child, or matrix pipeline | `orchestration.md`, `data-flow.md`, `pipeline-selection.md` |
@@ -65,6 +67,7 @@ correctness constraint, read that file too. Do not load unrelated files.
 | `references/data-flow.md` | Caching and cache keys, policies, misses; artifacts and reports; passing outputs between jobs; DAGs with `needs`; test sharding; checkout strategy (`GIT_DEPTH`); making a pipeline faster (measurement method and anti-patterns) |
 | `references/execution-environment.md` | Runners and `tags:`; executors; choosing and pinning job images; private registry auth; sidecar `services:` (databases for integration tests); Docker image builds (dind); environments, review apps, `resource_group`; GitLab Pages |
 | `references/orchestration.md` | Parent-child and multi-project pipelines; dynamic child pipelines; matrices (`parallel:matrix`); auto-cancel and retries (`interruptible`, `retry`); timeout budgeting; validating compiled configuration (CI Lint, `merged_yaml`, validation levels) |
+| `references/pipeline-ui.md` | Pipeline graphs that are too wide, tall, dense, or slow to navigate; stage vs job-dependency views; mini graphs; grouped jobs; downstream cards; choosing native GitLab structure that keeps large pipelines understandable |
 | `references/security.md` | Secrets storage and variable hygiene; fork MR pipelines; `CI_JOB_TOKEN` and its allowlist; runner isolation (privileged, shell executor); auditing third-party CI code |
 | `references/debugging.md` | A failing or missing pipeline or job with a concrete symptom: error-text lookup, debug-in-runner-order, empty-variable confusions, predefined-variable traps |
 | `references/bash-in-ci.md` | Writing or fixing `script:` / `before_script:` / `after_script:`; inline YAML vs `scripts/*.sh` decisions; `set -Eeuo pipefail`; required-env-var checks; quoting; shellcheck; why a multiline block didn't fail; how the runner executes commands |

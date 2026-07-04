@@ -18,7 +18,9 @@ Optimize for three questions:
 
 Naming mechanics live in `readability.md`; log safety and section syntax
 live in `informative-logging.md`; shell behavior lives in `bash-in-ci.md`.
-This file connects them into the developer's debugging path.
+Pipeline graph structure and native large-pipeline navigation live in
+`pipeline-ui.md`. This file connects them into the developer's debugging
+path.
 
 ## Make the pipeline identifiable
 

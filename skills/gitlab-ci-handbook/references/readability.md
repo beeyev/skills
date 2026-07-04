@@ -4,6 +4,7 @@ Verified against: GitLab 18.11
 Sources:
 - https://archives.docs.gitlab.com/18.11/ci/jobs/ (job names, grouping, hidden jobs)
 - https://archives.docs.gitlab.com/18.11/ci/variables/ (variable naming constraints)
+- https://archives.docs.gitlab.com/18.11/ci/yaml/#parallel (parallel and matrix job naming)
 
 A pipeline is read far more often than it is written: in MR review, in
 the pipeline graph, and in a failed-job page at 2 a.m. Optimize names for
@@ -35,12 +36,32 @@ Rules and conventions:
   `.rules-<when>` for reusable rule sets. The prefix tells the reader
   what kind of fragment they are looking at before they read a line of
   it.
-- Parallel/split jobs named `name 1/3`, `name 2/3`, `name 3/3` (also
-  `1:3` or `1 3`) are auto-grouped into one collapsed entry in the
-  pipeline graph. Use this for fanned-out test suites.
 - Manual gate jobs read best as an imperative with the consequence in the
   name: `deploy:production` behind a manual `rules` entry, not `button`
   or `approve`.
+
+## How names render in the pipeline graph
+
+The job name is the UI; GitLab has no separate display name. Graph-level
+structure and native large-pipeline navigation are in `pipeline-ui.md`.
+Naming levers:
+
+- Indexed names (`test:integration 1/5` .. `5/5`) collapse into one node
+  in the full pipeline graph, whether written by hand or produced by
+  `parallel:`. Separators, view scope, and when to use grouping:
+  `pipeline-ui.md`.
+- `parallel:matrix` jobs render as `job: [val1, val2]`; the variable
+  values are the only visible distinguisher, so keep them short and
+  descriptive (`[alpine, arm64]`, not `[img2, target-b]`). Matrix
+  mechanics: `orchestration.md`.
+- Job cards truncate long names (observed UI behavior, not documented).
+  A long shared prefix (`backend-services-integration:test:...`) pushes
+  the distinguishing part out of view; keep the domain prefix short and
+  put the variant last.
+- Emoji or ultra-short names (`🚀 prod`) save card width but leak into
+  `CI_JOB_NAME`, artifact names, log searches, `needs:` references, and
+  API queries. The width win is not worth the grep pain; prefer short
+  words.
 
 ## Stage names
 
@@ -50,7 +71,10 @@ Rules and conventions:
   phase boundary.
 - Don't invent a stage per job. Stages exist to express ordering; jobs
   that can run together belong in the same stage (or use `needs:` and
-  fewer stages, see `data-flow.md`).
+  fewer stages, see `data-flow.md`). Every stage with at least one job in
+  the pipeline also occupies space in GitLab's stage-based mini graph
+  (empty stages are omitted); see `pipeline-ui.md` before changing
+  stages for presentation.
 - If `stages:` is omitted, GitLab provides `.pre`, `build`, `test`,
   `deploy`, `.post`, and a job without `stage:` lands in `test`. Declare
   `stages:` explicitly in anything beyond a toy pipeline; implicit

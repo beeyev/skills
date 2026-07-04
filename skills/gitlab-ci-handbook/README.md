@@ -16,6 +16,8 @@ while preserving project conventions and CI security.
   Docker builds, environments, GitLab Pages
 - Orchestration: child and downstream pipelines, matrices, auto-cancel,
   retries, timeouts, validating compiled config
+- Pipeline UI: compact native GitLab graphs, grouped jobs, dependency views,
+  downstream cards, and large-pipeline navigation
 - Security: secrets hygiene, fork MR pipelines, job tokens, runner isolation
 - Debugging: failure-signature catalog, symptom-to-cause tables, variable
   traps

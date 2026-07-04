@@ -75,6 +75,14 @@ test:$[[ inputs.service ]]:
   multi-project pipeline is not canceled merely because a newer pipeline
   starts for the same ref in the upstream project. The upstream UI exposes
   the downstream project name and status even when that project is private.
+- In the parent graph, each downstream pipeline appears as a card. GitLab
+  expands one downstream pipeline at a time. This reduces the root graph
+  only when the child owns a coherent domain; splitting solely for
+  appearance adds navigation and data-flow complexity without an ownership
+  boundary. Selection guidance is in `pipeline-ui.md`.
+- Child-pipeline reports can surface in the parent's MR widgets when the
+  trigger uses `strategy: mirror` or `strategy: depend`. Version gates
+  and the supported report types are in `pipeline-ui.md`.
 
 ## 2. Dynamic child pipelines for generated topology
 
