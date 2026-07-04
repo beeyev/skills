@@ -1,8 +1,8 @@
 # GitLab CI Handbook
 
-Agent skill with curated GitLab CI/CD guidance
-Helps agents write, review, optimize, and debug GitLab pipelines and
-`.gitlab-ci.yml` files.
+Curated GitLab CI/CD knowledge base for AI agents. Helps agents explain,
+author, review, optimize, validate, and debug `.gitlab-ci.yml` pipelines
+while preserving project conventions and CI security.
 
 ## What it covers
 
@@ -28,7 +28,7 @@ Helps agents write, review, optimize, and debug GitLab pipelines and
 
 ## Layout
 
-- [SKILL.md](SKILL.md) - entry point and topic router
+- [SKILL.md](SKILL.md) - entry point, task bundles, and topic router
 - [references/](references/) - one focused file per topic, loaded on demand
 
 ## Install
