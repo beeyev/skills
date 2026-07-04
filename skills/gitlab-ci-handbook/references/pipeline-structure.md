@@ -356,7 +356,8 @@ Choosing one:
 
 - The catalog marks verification levels: **GitLab-maintained**,
   **GitLab Partner** (provided as-is, no warranty), **Verified creator**
-  (self-managed/dedicated, designated by an admin), and unverified.
+  (creator verified by GitLab or an instance administrator), and
+  unverified.
   Prefer GitLab-maintained for security-relevant jobs; treat the rest as
   third-party code.
 - Audit before adopting, whatever the badge: read the component source,

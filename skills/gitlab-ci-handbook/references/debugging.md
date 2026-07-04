@@ -32,7 +32,6 @@ GitLab actually compiled, not the source files: the pipeline editor's
 `extends` resolved, `gitlab-ci-local --list` simulates it locally, and the
 CI Lint API returns `merged_yaml` and the job list per ref (the validation levels in `orchestration.md`).
 
-
 ## Failure signatures
 
 Concrete log or UI text mapped to cause and fix, grouped by the phase

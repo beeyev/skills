@@ -264,7 +264,7 @@ each catches what the previous cannot:
 3. Lint simulation (`dry_run: true` with `ref` and
    `include_jobs: true`): evaluates `workflow:rules` and job `rules`
    for a real ref and returns `merged_yaml` plus the job list. Catches
-   "job silently missing" and include-merge surprises (pattern 5).
+   "job silently missing" and include-merge surprises.
 4. `shellcheck` over `scripts/ci/*.sh`: job recipe in `bash-in-ci.md`.
 5. A real pipeline on a branch: the only level that exercises runner
    selection, image pulls, services, caches, and the scripts

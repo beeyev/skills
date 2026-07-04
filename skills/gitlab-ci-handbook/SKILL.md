@@ -1,8 +1,9 @@
 ---
 name: gitlab-ci-handbook
 description: >-
-  GitLab CI/CD knowledge base (GitLab 18+). Use whenever the user writes,
-  reviews, optimizes, or debugs GitLab pipelines or .gitlab-ci.yml files:
+  GitLab CI/CD knowledge base (GitLab 18+). Use whenever the user asks
+  about, needs an explanation of, writes, reviews, optimizes, or debugs
+  GitLab pipelines or .gitlab-ci.yml files:
   stages, jobs, rules and workflows, includes and templates, caching and
   artifacts, child and downstream pipelines, environments
   and deployments, or bash scripts running inside CI jobs, even if they
@@ -43,9 +44,10 @@ correctness constraint, read that file too. Do not load unrelated files.
 
 | Task | Read before acting |
 |---|---|
+| Focused question or explanation | The matching topic owner from Routing, plus every safety or correctness reference it names |
 | Create a complete pipeline | `pipeline-structure.md`, `pipeline-selection.md`, `data-flow.md`, `execution-environment.md`, `bash-in-ci.md`, `security.md` |
 | Add or modify a job | `pipeline-selection.md`, then every topic owner from Routing that matches the changed keywords; read `bash-in-ci.md` when adding or changing commands |
-| Full review or audit | `pipeline-structure.md`, `pipeline-selection.md`, `data-flow.md`, `execution-environment.md`, `security.md`, `bash-in-ci.md`; add `readability.md`, `informative-logging.md`, and `developer-experience.md` when reviewing maintainability or diagnostics |
+| Full review or audit | `pipeline-structure.md`, `pipeline-selection.md`, `data-flow.md`, `execution-environment.md`, `security.md`, `bash-in-ci.md`, and the validation section in `orchestration.md`; add `readability.md`, `informative-logging.md`, and `developer-experience.md` when reviewing maintainability or diagnostics |
 | Pipeline or job missing | `debugging.md`, `pipeline-selection.md`, and the validation section in `orchestration.md` |
 | Runner, image, service, or pre-script failure | `debugging.md`, `execution-environment.md`; add `security.md` for authentication, protected resources, or runner trust |
 | Script failure | `debugging.md`, `bash-in-ci.md`; add `data-flow.md` for cache, artifact, report, or dependency-transfer failures |
