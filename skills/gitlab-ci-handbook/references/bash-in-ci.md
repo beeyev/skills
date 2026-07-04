@@ -204,5 +204,26 @@ done
 - Temporary files: `mktemp`, and clean up with
   `trap 'rm -f "$tmpfile"' EXIT`.
 - Run `shellcheck` on `scripts/ci/*.sh` in the pipeline itself; it is a
-  one-job lint stage and catches most of the above mechanically (see
-  `common-patterns.md` for a lint job recipe).
+  one-job lint stage and catches most of the above mechanically (recipe
+  below).
+
+## Linting CI bash with shellcheck
+
+**When:** any repo with `scripts/ci/*.sh` (see the extraction criteria above). Catches
+quoting bugs, unset-variable typos, and most other shell mistakes
+mechanically, in seconds.
+
+```yaml
+lint:shellcheck:
+  stage: test
+  image: koalaman/shellcheck-alpine:stable
+  needs: []
+  script:
+    - shellcheck scripts/ci/*.sh
+```
+
+- `needs: []` starts it at pipeline creation; it only needs the source.
+- Pin the image tag to the project's standard instead of `stable` if
+  reproducible lint results matter.
+  <!-- volatile: re-verify image name on version bump -->
+

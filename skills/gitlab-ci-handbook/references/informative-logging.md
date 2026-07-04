@@ -132,7 +132,7 @@ section_end install_deps
 ## Masking: what it does and does not protect
 
 Facts (all UI-level settings on project/group/instance variables, see
-`common-patterns.md` for the secrets workflow):
+`security.md` for the secrets workflow):
 
 - A **masked** variable's value is replaced with `[MASKED]` when it
   appears in a job log. Requirements on the value: single line, no
