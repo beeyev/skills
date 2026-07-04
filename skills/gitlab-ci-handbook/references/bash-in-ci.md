@@ -226,4 +226,3 @@ lint:shellcheck:
 - Pin the image tag to the project's standard instead of `stable` if
   reproducible lint results matter.
   <!-- volatile: re-verify image name on version bump -->
-

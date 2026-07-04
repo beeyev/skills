@@ -61,7 +61,7 @@ on the shape.
 | `pull access denied` / `no basic auth credentials` | Private image without credentials; `DOCKER_AUTH_CONFIG`, or missing role on the hosting project (`execution-environment.md`). |
 | `Cannot connect to the Docker daemon` in a dind job | dind service missing or not ready, or `DOCKER_TLS_CERTDIR`/host mismatch; Docker build pattern in `execution-environment.md`. |
 | `WARNING: Service X probably didn't start properly` | Service crashed or was slow to open its port. `CI_DEBUG_SERVICES: "true"` shows its logs (`execution-environment.md`). |
-| Job pending forever, "This job is stuck" | No runner matches the job's `tags:` (or no runner allows untagged jobs). Runners and tags in `execution-environment.md`. |
+| Job pending forever, "This job is stuck" | No eligible runner: tags or untagged-job settings do not match, the runner is offline or paused, a protected runner rejects the ref, or the relevant runner scope is disabled. If an eligible runner exists but is busy, this is queue capacity instead. Runners and tags in `execution-environment.md`. |
 | Cache restored on no run, or created on every run | Key mismatch or key churn; cache forensics in `data-flow.md`. |
 
 ### During and after the script (runtime)
@@ -70,7 +70,7 @@ on the shape.
 |---|---|
 | `command not found` | Binary not in the job image: wrong image, missing install step, or a bashism under busybox `sh` (`bash-in-ci.md`). |
 | `VAR: unbound variable` or a silently empty `$VAR` | Variable not in scope: protected variable on an unprotected ref, wrong pipeline type (MR vs branch), precedence override, or typo surfaced by `set -u`. See the confusions below. |
-| Exit code 137, or `Killed` with no other output | Out of memory (SIGKILL). Reduce the job's parallel workers or use a bigger runner; treat as infra when transient (`retry:exit_codes: [137]`, `orchestration.md`). |
+| Exit code 137, or `Killed` with no other output | The process received `SIGKILL`. OOM is common, but an external kill, cancellation, or timeout can produce the same status. Check runner and container OOM evidence before reducing workers or increasing memory. Retry exit 137 only after confirming a transient infrastructure cause (`orchestration.md`). |
 | Artifact upload fails with a size error | Over the instance's max artifact size. Narrow `artifacts:paths` to what downstream consumes (`data-flow.md`). |
 | Cleanup or diagnostics missing after failure | `after_script` runs in a new shell with its own timeout and cannot change job status; budget for it (`bash-in-ci.md`, timeout pattern in `orchestration.md`). |
 | Job canceled mid-run without a human canceling | `workflow:auto_cancel` plus `interruptible: true`: a newer commit superseded the pipeline (`orchestration.md`). |
@@ -87,10 +87,14 @@ on the shape.
   in MR and tag pipelines); an environment-scoped variable outside its
   environment; a higher-precedence definition overriding yours.
 - **`rules:` cannot see a variable a script exported.** Rules evaluate
-  at pipeline creation, before any job runs. Only pipeline-creation
-  variables (predefined, project/group, trigger, schedule) exist there;
-  pass runtime values between jobs with `artifacts:reports:dotenv`, not
-  rules.
+  at pipeline creation, before any job runs. They can use variables
+  available while GitLab creates the pipeline, including applicable
+  predefined, instance/group/project, pipeline, manual, schedule,
+  trigger, top-level YAML, and `workflow:rules:variables` values. They
+  cannot use job-only variables, script exports, or dotenv values
+  produced by earlier jobs. Pass runtime values between job scripts with
+  `artifacts:reports:dotenv`; they cannot change the already-compiled
+  rules result.
 - **`needs:` broke after a refactor.** A job was renamed or its rules
   changed, so the target vanished from some pipeline types. Diff the
   compiled config before and after (Full configuration tab or CI Lint

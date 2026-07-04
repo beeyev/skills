@@ -61,11 +61,15 @@ pipeline can reach; none of them make running one safe.
   registries, a growing set of REST endpoints) over a personal or group
   access token baked into a variable: a leaked PAT outlives the job
   that leaked it and carries the owner's full scopes.
-- Inbound cross-project access is closed by default: another project's
+- Private cross-project access is closed by default: another project's
   job token works here only if that project or its group is on this
-  project's allowlist (Settings > CI/CD > Job token permissions). Keep
-  the allowlist to specific projects; opening it wide reinstates the
-  exposure the allowlist was introduced to close.
+  project's allowlist (Settings > CI/CD > Job token permissions) and the
+  triggering user already has the required permissions. Public and
+  internal projects expose some resources to non-allowlisted job tokens
+  unless those project features are restricted to project members. Keep
+  allowlists specific and restrict feature visibility when access must be
+  allowlist-only; opening access wide reinstates the exposure the
+  allowlist was introduced to close.
 - The job token acts with the access level of the user who triggered
   the pipeline (within the job token's reduced resource surface). A
   pipeline triggered by a Maintainer can reach more than one triggered

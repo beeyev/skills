@@ -164,9 +164,3 @@ When runner behavior is not what the job tests:
 If the failure depends on runner networking, services, mounts, or protected
 credentials, state that constraint. Do not promise a misleading local
 reproduction path.
-
-## Debug in runner order
-
-Moved to `debugging.md`, together with the failure-signature catalog.
-This file is about designing pipelines whose failures are debuggable;
-`debugging.md` is the symptom-to-cause direction.

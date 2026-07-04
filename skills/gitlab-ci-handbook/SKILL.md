@@ -26,9 +26,10 @@ metadata:
 # GitLab CI Handbook
 
 Curated GitLab CI/CD guidance, verified against GitLab 18.x. This file is
-a router: find the topic, read that reference file, then act. Read more
-than one when the task spans topics (most pipeline work needs
-`pipeline-structure.md` plus one other).
+a router. Select the task bundle first and read every required reference
+before acting. Then add topic references for the configuration under
+review. When a reference points to another file for a safety or
+correctness constraint, read that file too. Do not load unrelated files.
 
 ## Baseline
 
@@ -37,6 +38,21 @@ than one when the task spans topics (most pipeline work needs
 - For syntax not covered here, or when in doubt, check the official docs
   instead of guessing: keyword reference https://docs.gitlab.com/ci/yaml/,
   versioned archive https://archives.docs.gitlab.com/.
+
+## Task bundles
+
+| Task | Read before acting |
+|---|---|
+| Create a complete pipeline | `pipeline-structure.md`, `pipeline-selection.md`, `data-flow.md`, `execution-environment.md`, `bash-in-ci.md`, `security.md` |
+| Add or modify a job | `pipeline-selection.md`, then every topic owner from Routing that matches the changed keywords; read `bash-in-ci.md` when adding or changing commands |
+| Full review or audit | `pipeline-structure.md`, `pipeline-selection.md`, `data-flow.md`, `execution-environment.md`, `security.md`, `bash-in-ci.md`; add `readability.md`, `informative-logging.md`, and `developer-experience.md` when reviewing maintainability or diagnostics |
+| Pipeline or job missing | `debugging.md`, `pipeline-selection.md`, and the validation section in `orchestration.md` |
+| Runner, image, service, or pre-script failure | `debugging.md`, `execution-environment.md`; add `security.md` for authentication, protected resources, or runner trust |
+| Script failure | `debugging.md`, `bash-in-ci.md`; add `data-flow.md` for cache, artifact, report, or dependency-transfer failures |
+| Optimize a pipeline | `data-flow.md`, `execution-environment.md`, `orchestration.md`, `pipeline-selection.md` |
+| Deploy or environment work | `execution-environment.md`, `pipeline-selection.md`, `security.md` |
+| Components or includes | `pipeline-structure.md`, `security.md`, and the validation section in `orchestration.md` |
+| Downstream, child, or matrix pipeline | `orchestration.md`, `data-flow.md`, `pipeline-selection.md` |
 
 ## Routing
 
@@ -53,13 +69,6 @@ than one when the task spans topics (most pipeline work needs
 | `references/readability.md` | Naming jobs, stages, variables, or CI files; commenting style; making a pipeline navigable for newcomers |
 | `references/informative-logging.md` | What jobs should echo (versions, decisions) and must never echo (secrets); collapsible log sections; variable masking behavior |
 | `references/developer-experience.md` | Designing pipelines whose failures are debuggable: `workflow:name` pipeline titles; job execution headers; actionable failure messages; surfacing test reports and artifact links in MRs; diagnostic artifacts; reproducing CI failures locally |
-
-Reviewing or auditing an existing pipeline: read
-`pipeline-structure.md`, `pipeline-selection.md`, `data-flow.md`,
-`bash-in-ci.md`, and `security.md` at minimum; add the rest when the
-review touches execution environment, logs, naming, or debuggability.
-The corpus is still small enough that reading all of it for a full
-review is fine and preferred over guessing.
 
 Secrets questions span two files: log exposure and masking in
 `informative-logging.md`, storage, tokens, and the wider threat model in
