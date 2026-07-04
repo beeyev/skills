@@ -37,7 +37,7 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       variables:
         APP_PIPELINE_NAME: "MR: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
-    # Suppress duplicate branch pipelines for open MRs (pattern 1 in common-patterns.md).
+    # Suppress duplicate branch pipelines for open MRs (pattern 1 in pipeline-selection.md).
     - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -117,7 +117,7 @@ Use structured output whenever GitLab can render it better than a log dump:
 
 Reports do not necessarily control job status. The producing command must
 still exit non-zero when its findings should fail the job. See
-`common-patterns.md` for artifact and report mechanics.
+`data-flow.md` for artifact and report mechanics.
 
 ## Retain bounded diagnostics
 
@@ -144,7 +144,7 @@ test:system:
 
 Use `after_script` for best-effort collection after a failed `script`.
 It runs in a fresh shell and cannot change the original job result. Reserve
-time for it; pattern 19 in `common-patterns.md` covers timeout budgeting.
+time for it; the timeout budgeting pattern in `orchestration.md` covers it.
 
 ## Keep the entry point reproducible
 
@@ -164,25 +164,3 @@ When runner behavior is not what the job tests:
 If the failure depends on runner networking, services, mounts, or protected
 credentials, state that constraint. Do not promise a misleading local
 reproduction path.
-
-## Debug in runner order
-
-| Symptom | Inspect first |
-|---|---|
-| Pipeline absent or wrong type | `workflow:rules`, pipeline source, CI Lint simulation |
-| Job absent | Conditional includes, job `rules`, compiled job list |
-| Failure before `script` | Runner selection, image pull, checkout, cache, artifact download |
-| Failure during `script` | Execution header, failing command, diagnostics, local entry point |
-| Failure after `script` | `after_script`, cache/artifact upload, timeout budget |
-| Downstream failure | Trigger job, linked pipeline, passed inputs and forwarded variables |
-
-This avoids debugging application code when the runner never reached it,
-or debugging runner infrastructure after the script emitted a specific
-application failure.
-
-For "pipeline absent" and "job absent" rows, inspect the configuration
-GitLab actually compiled, not the source files: the pipeline editor's
-**Full configuration** tab shows the merged YAML with includes and
-`extends` resolved, `gitlab-ci-local --list` simulates it locally, and the
-CI Lint API returns `merged_yaml` and the job list per ref (pattern 19 in
-`common-patterns.md`).

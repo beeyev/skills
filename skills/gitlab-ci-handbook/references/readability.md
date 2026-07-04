@@ -50,7 +50,7 @@ Rules and conventions:
   phase boundary.
 - Don't invent a stage per job. Stages exist to express ordering; jobs
   that can run together belong in the same stage (or use `needs:` and
-  fewer stages, see `common-patterns.md`).
+  fewer stages, see `data-flow.md`).
 - If `stages:` is omitted, GitLab provides `.pre`, `build`, `test`,
   `deploy`, `.post`, and a job without `stage:` lands in `test`. Declare
   `stages:` explicitly in anything beyond a toy pipeline; implicit

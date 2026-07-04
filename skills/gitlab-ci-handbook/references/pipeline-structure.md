@@ -342,6 +342,34 @@ After publishing, replace `local` with the versioned component address,
 for example
 `component: $CI_SERVER_FQDN/platform/ci-components/scan@1.4.2`.
 
+### Consuming components someone else wrote
+
+For standard cross-cutting tasks (SAST, secret detection, dependency
+and container scanning, IaC pipelines), check the CI/CD Catalog and
+GitLab's built-in templates before hand-rolling a job: a maintained
+component keeps up with report formats and scanner changes that a
+custom job would re-implement and then neglect. Do not embed a catalog
+inventory in project docs; it goes stale. Search the catalog when the
+need arises.
+
+Choosing one:
+
+- The catalog marks verification levels: **GitLab-maintained**,
+  **GitLab Partner** (provided as-is, no warranty), **Verified creator**
+  (creator verified by GitLab or an instance administrator), and
+  unverified.
+  Prefer GitLab-maintained for security-relevant jobs; treat the rest as
+  third-party code.
+- Audit before adopting, whatever the badge: read the component source,
+  check what its jobs do with the credentials and variables they
+  receive, check for global keywords (`default`, `stages`, `workflow`)
+  that would rewrite your pipeline, and check its job names against
+  yours (same-name jobs merge; see merge semantics above).
+- Pin per the list above: full commit SHA when immutability matters,
+  exact release tag otherwise; never `~latest` in production. Re-audit
+  on version bumps; a component update is a dependency update.
+- Security framing (what a hostile include can reach): `security.md`.
+
 ## Worked example: assembling a pipeline from includes
 
 Root `.gitlab-ci.yml` (pipeline-wide concerns only):
@@ -428,7 +456,7 @@ What this demonstrates: root file holds `workflow`/`stages`/`default`/
 `include` and nothing else; domain files hold jobs; shared config lives
 in `.base-node` and named rule sets; rules compose via `!reference`
 because `extends` would replace the array; `needs` links stages into a
-DAG (see `common-patterns.md`).
+DAG (see `data-flow.md`).
 
 ## Refactoring an existing god YAML
 

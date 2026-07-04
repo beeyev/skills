@@ -6,15 +6,25 @@ Helps agents write, review, optimize, and debug GitLab pipelines and
 
 ## What it covers
 
-- Pipeline structure: stages, jobs, `include`, `extends`, CI/CD components,
-  refactoring oversized YAML
-- Bash in CI: `script:` blocks, `set -Eeuo pipefail`, quoting, script extraction
+- Pipeline structure: stages, jobs, `include`, `extends`, CI/CD components
+  (authoring and consuming), refactoring oversized YAML
+- Pipeline selection: `workflow:rules`, job `rules`, schedules, tag releases,
+  manual gates
+- Data flow: caching and artifacts, DAGs with `needs`, test sharding,
+  optimization method
+- Execution environment: runners and tags, job images, sidecar services,
+  Docker builds, environments, GitLab Pages
+- Orchestration: child and downstream pipelines, matrices, auto-cancel,
+  retries, timeouts, validating compiled config
+- Security: secrets hygiene, fork MR pipelines, job tokens, runner isolation
+- Debugging: failure-signature catalog, symptom-to-cause tables, variable
+  traps
+- Bash in CI: `script:` blocks, `set -Eeuo pipefail`, quoting, script
+  extraction, shellcheck
 - Readability: naming jobs, stages, variables, and CI files
-- Logging: collapsible sections, variable masking, secrets hygiene
-- Developer experience: debugging failed pipelines, MR reports, reproducing CI
-  failures locally
-- Common patterns: caching and artifacts, DAGs, Docker builds, environments,
-  child pipelines, matrices, retries, test sharding
+- Logging: collapsible sections, variable masking
+- Developer experience: designing debuggable pipelines, MR reports,
+  reproducing CI failures locally
 
 ## Layout
 
