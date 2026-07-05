@@ -69,7 +69,10 @@ matching, so know the matching rules:
   the runner uses it when pulling `image:` and `services:`. Images in
   a GitLab project's own registry pull with the job's default
   credentials, but the user who triggered the job needs at least
-  Developer role in the project that hosts the image.
+  Developer role in the project that hosts the image. Pulling another
+  project's registry image additionally requires that project to allow
+  this one on its job token allowlist, which is closed by default
+  (`security.md`).
 
 ## Sidecar services
 
@@ -216,9 +219,13 @@ stop:review:
 - The matching `resource_group` values make the Environments UI run the
   `on_stop` job when a user stops the environment. `allow_failure: true`
   keeps this manual cleanup action from blocking the MR pipeline.
-- Set `GIT_STRATEGY: none` only when the cleanup command is available in
+- The stop job also fires after the source branch is deleted, when
+  checkout can fail; the docs recommend `GIT_STRATEGY: none` or `empty`
+  for stop jobs. That requires the cleanup command to be available in
   the job image or fetched another way. The example checks out the repo
-  because its cleanup script lives in `scripts/ci/`.
+  because its cleanup script lives in `scripts/ci/`; either accept that
+  the stop job can fail on a deleted branch, or bake the cleanup logic
+  into the job image and set `GIT_STRATEGY: empty`.
 - `resource_group: <name>` serializes jobs across pipelines: two
   deploys to the same target never overlap. The default process mode is
   `unordered`, so execution order is not guaranteed. Configure

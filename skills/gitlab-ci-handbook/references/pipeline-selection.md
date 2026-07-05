@@ -106,6 +106,11 @@ release:publish:
   can trigger release pipelines and so protected variables are available
   to them.
 - The `workflow:rules` block must allow tag pipelines (`if: $CI_COMMIT_TAG`).
+- To also create a GitLab Release entry (release notes, asset links, the
+  Releases page), add the `release:` keyword to the tag job. The job
+  environment must provide the release tool (`release-cli`, or `glab` on
+  newer runners); `release:` creates the Release object, it does not
+  build or attach artifacts by itself.
 
 ## 4. Scheduled jobs
 
@@ -160,8 +165,9 @@ build:docker-image:
 - The same mechanism works on `include:rules` to pull whole config files
   in conditionally (see `pipeline-structure.md`).
 - GitLab 18.11 permits at most 50 paths or patterns in one
-  `rules:changes` section. After 50,000 file-pattern checks, patterned
-  globs match instead of continuing precise evaluation.
+  `rules:changes` section. (`rules:exists` has a separate budget: after
+  50,000 file checks, patterned globs are assumed to match instead of
+  being evaluated precisely.)
   <!-- volatile: re-verify on version bump --> Keep monorepo patterns
   coarse, and use conditional includes or child pipelines when domains
   can be isolated.

@@ -51,7 +51,9 @@ test:unit:
 
 - `cache:key:files` keys the cache to the lockfile hash: new lockfile,
   new cache. For branch-scoped caches use `key: $CI_COMMIT_REF_SLUG`
-  with `fallback_keys: [cache-$CI_DEFAULT_BRANCH]`.
+  with `fallback_keys: [$CI_DEFAULT_BRANCH]`. A fallback key only hits
+  when some job actually writes a cache under that exact key; here the
+  default branch's own pipeline writes it.
 - Cache the package manager's *cache directory* (`.npm`, `.cache/pip`),
   not `node_modules` itself; installers handle partial caches, module
   dirs go stale.

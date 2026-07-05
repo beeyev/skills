@@ -18,7 +18,8 @@ while preserving project conventions and CI security.
   retries, timeouts, validating compiled config
 - Pipeline UI: compact native GitLab graphs, grouped jobs, dependency views,
   downstream cards, and large-pipeline navigation
-- Security: secrets hygiene, fork MR pipelines, job tokens, runner isolation
+- Security: secrets hygiene, fork MR pipelines, job tokens, OIDC id_tokens,
+  runner isolation
 - Debugging: failure-signature catalog, symptom-to-cause tables, variable
   traps
 - Bash in CI: `script:` blocks, `set -Eeuo pipefail`, quoting, script

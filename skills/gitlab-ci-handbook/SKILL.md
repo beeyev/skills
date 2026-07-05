@@ -16,7 +16,7 @@ metadata:
   author: Alexander Tebiev
   source: https://github.com/beeyev/skills
   homepage: https://github.com/beeyev/skills/tree/master/skills/gitlab-ci-handbook
-  version: "1.2.0"
+  version: "1.3.0"
   category: devops
   keywords: >-
     gitlab, gitlab-ci, gitlab-ci.yml, ci-cd, continuous-integration,
@@ -43,6 +43,8 @@ correctness constraint, read that file too. Do not load unrelated files.
 
 ## Task bundles
 
+File names in this table live under `references/`.
+
 | Task | Read before acting |
 |---|---|
 | Focused question or explanation | The matching topic owner from Routing, plus every safety or correctness reference it names |
@@ -68,7 +70,7 @@ correctness constraint, read that file too. Do not load unrelated files.
 | `references/execution-environment.md` | Runners and `tags:`; executors; choosing and pinning job images; private registry auth; sidecar `services:` (databases for integration tests); Docker image builds (dind); environments, review apps, `resource_group`; GitLab Pages |
 | `references/orchestration.md` | Parent-child and multi-project pipelines; dynamic child pipelines; matrices (`parallel:matrix`); auto-cancel and retries (`interruptible`, `retry`); timeout budgeting; validating compiled configuration (CI Lint, `merged_yaml`, validation levels) |
 | `references/pipeline-ui.md` | Pipeline graphs that are too wide, tall, dense, or slow to navigate; stage vs job-dependency views; mini graphs; grouped jobs; downstream cards; choosing native GitLab structure that keeps large pipelines understandable |
-| `references/security.md` | Secrets storage and variable hygiene; fork MR pipelines; `CI_JOB_TOKEN` and its allowlist; runner isolation (privileged, shell executor); auditing third-party CI code |
+| `references/security.md` | Secrets storage and variable hygiene; fork MR pipelines; `CI_JOB_TOKEN` and its allowlist; OIDC `id_tokens` for cloud auth; runner isolation (privileged, shell executor); auditing third-party CI code |
 | `references/debugging.md` | A failing or missing pipeline or job with a concrete symptom: error-text lookup, debug-in-runner-order, empty-variable confusions, predefined-variable traps |
 | `references/bash-in-ci.md` | Writing or fixing `script:` / `before_script:` / `after_script:`; inline YAML vs `scripts/*.sh` decisions; `set -Eeuo pipefail`; required-env-var checks; quoting; shellcheck; why a multiline block didn't fail; how the runner executes commands |
 | `references/readability.md` | Naming jobs, stages, variables, or CI files; commenting style; making a pipeline navigable for newcomers |

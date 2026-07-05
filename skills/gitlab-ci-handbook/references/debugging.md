@@ -84,7 +84,8 @@ on the shape.
   protected variable on an unprotected ref; MR pipeline versus branch
   pipeline changing which variables exist (`CI_COMMIT_BRANCH` is unset
   in MR and tag pipelines); an environment-scoped variable outside its
-  environment; a higher-precedence definition overriding yours.
+  environment; a higher-precedence definition overriding yours
+  (precedence order below).
 - **`rules:` cannot see a variable a script exported.** Rules evaluate
   at pipeline creation, before any job runs. They can use variables
   available while GitLab creates the pipeline, including applicable
@@ -105,6 +106,26 @@ on the shape.
 - **`$?` is always 0 between `script:` items.** The runner's trace echo
   overwrites it; check exit status within the same item
   (`bash-in-ci.md`).
+
+## Variable precedence
+
+When two definitions share a name, the higher one wins silently. From
+highest to lowest: <!-- volatile: re-verify on version bump -->
+
+1. Pipeline execution policy and scan execution policy variables
+2. Pipeline variables (manual run, schedule, trigger, API,
+   `trigger:forward` from upstream)
+3. Project variables
+4. Group variables (closest subgroup wins)
+5. Instance variables
+6. Variables from `artifacts:reports:dotenv`
+7. Job-level `variables:` in YAML
+8. Top-level `variables:` in YAML
+9. Deployment variables
+10. Predefined variables
+
+Most "my YAML variable is ignored" tickets are a project/group/pipeline
+variable (2-5) overriding a YAML definition (7-8).
 
 ## Predefined variables worth memorizing
 

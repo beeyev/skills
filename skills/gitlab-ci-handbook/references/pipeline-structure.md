@@ -241,8 +241,9 @@ Notes:
 
 - Inputs without `default:` are mandatory; give defaults unless you want
   every consumer to pass the value.
-- `!reference` is evaluated before input interpolation, so you cannot put
-  inputs inside `!reference` targets.
+- Inputs are interpolated when each file is fetched, before merge;
+  `!reference` resolves later, during merge. Complex YAML features such
+  as `!reference` cannot be used inside input values.
 - For same-repo domain includes, inputs are usually overkill; plain
   variables and hidden jobs are enough.
 

@@ -5,6 +5,7 @@ Sources:
 - https://archives.docs.gitlab.com/18.11/ci/variables/#cicd-variable-security
 - https://archives.docs.gitlab.com/18.11/ci/pipelines/merge_request_pipelines/ (fork pipelines)
 - https://archives.docs.gitlab.com/18.11/ci/jobs/ci_job_token/
+- https://archives.docs.gitlab.com/18.11/ci/secrets/id_token_authentication/
 - https://archives.docs.gitlab.com/18.11/ci/components/ (component security guidance)
 - https://docs.gitlab.com/runner/security/
 
@@ -75,6 +76,22 @@ pipeline can reach; none of them make running one safe.
   pipeline triggered by a Maintainer can reach more than one triggered
   by a Developer; protected branches gating who can run deploy
   pipelines is part of the credential story, not just process.
+
+## Short-lived cloud credentials: `id_tokens`
+
+- For cloud deploys, prefer OIDC federation over stored keys.
+  `id_tokens:` gives the job a short-lived JWT with an audience you set;
+  AWS, GCP, Azure, and Vault can verify it and exchange it for temporary
+  credentials. Nothing long-lived is stored in GitLab, so there is
+  nothing to rotate or exfiltrate from variables. Available on the Free
+  tier.
+- Scope the trust policy on the cloud side to project, ref, and
+  environment claims from the token, not just the issuer; an
+  issuer-only trust lets any pipeline on the instance assume the role.
+- The `secrets:` keyword pulls values from external managers directly
+  (Vault integration requires Premium; other providers have their own
+  gates, check current docs). Where `secrets:` is unavailable, exchange
+  the ID token in the job script instead.
 
 ## Runner isolation
 

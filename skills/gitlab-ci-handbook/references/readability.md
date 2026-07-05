@@ -137,9 +137,12 @@ Good example:
 
 ```yaml
 test:e2e:
-  # Flaky upstream driver, retry twice before humans get paged.
+  # Flaky upstream driver dies with 137; retry only that, not real failures.
   # Remove when https://gitlab.com/example/example/-/issues/42 is fixed.
-  retry: 2
+  retry:
+    max: 2
+    exit_codes:
+      - 137
   rules:
     # E2E costs ~15 min; run only where the result gates a merge.
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
