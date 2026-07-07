@@ -13,11 +13,16 @@ while preserving project conventions and CI security.
 - Data flow: caching and artifacts, DAGs with `needs`, test sharding,
   optimization method
 - Execution environment: runners and tags, job images, sidecar services,
-  Docker builds, environments, GitLab Pages
+  Docker builds, GitLab Pages
+- Environments and deployments: naming, tiers, review apps, lifecycle and
+  stop jobs, deployment safety, protected environments, rollback, downstream
+  deployment projects, Kubernetes metadata, and UI design
 - Orchestration: child and downstream pipelines, matrices, auto-cancel,
   retries, timeouts, validating compiled config
 - Pipeline UI: compact native GitLab graphs, grouped jobs, dependency views,
   downstream cards, and large-pipeline navigation
+- GitLab UI integration: typed pipeline and job forms, manual actions, MR
+  widgets and diff annotations, native reports, artifact links, and Releases
 - Security: secrets hygiene, fork MR pipelines, job tokens, OIDC id_tokens,
   runner isolation
 - Debugging: failure-signature catalog, symptom-to-cause tables, variable
@@ -26,8 +31,8 @@ while preserving project conventions and CI security.
   extraction, shellcheck
 - Readability: naming jobs, stages, variables, and CI files
 - Logging: collapsible sections, variable masking
-- Developer experience: designing debuggable pipelines, MR reports,
-  reproducing CI failures locally
+- Developer experience: designing debuggable pipelines and reproducing CI
+  failures locally
 
 ## Layout
 
