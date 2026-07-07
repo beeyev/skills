@@ -310,6 +310,12 @@ secret transport.
   Reporter-level access through an allowed group can deploy, but stopping or
   deleting a protected environment also depends on branch push or merge access.
   Design cleanup ownership separately from deployment permission.
+- GitLab 18.11 has no `environment:` or job keyword that hides the Environments
+  UI Stop action while leaving the user authorized to stop that environment.
+  Removing `on_stop` changes the action from running teardown to metadata-only
+  stopping; it does not make the button a reliable access control. Use
+  protected-environment permissions to remove stop authorization, or make the
+  teardown idempotent and safe when authorized users can stop it.
 - Deployment approvals are Premium/Ultimate and apply to protected
   environments. Approval does not start the job. After all rules pass,
   someone must still run the deployment job. By default, the pipeline

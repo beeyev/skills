@@ -185,7 +185,8 @@ A large graph should not be the only way to understand a pipeline:
   graph.
 
 These features do not compact the graph, but they reduce how often users must
-scan it. Details are in `developer-experience.md` and `readability.md`.
+scan it. UI surface selection is in `gitlab-ui-integration.md`; naming and
+debugging flow are in `readability.md` and `developer-experience.md`.
 
 ## Native review workflow
 

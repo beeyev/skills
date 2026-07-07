@@ -8,21 +8,22 @@ description: >-
   artifacts, child and downstream pipelines, environments
   and deployments, or bash scripts running inside CI jobs, even if they
   only mention "pipeline" or "CI" in a GitLab context. Covers pipeline
-  structure and refactoring, large or unreadable pipeline graphs, CI/CD
-  best practices, debugging failed pipelines, CI security, and DevOps
-  automation on GitLab.
+  structure and refactoring, large or unreadable pipeline graphs, GitLab UI
+  integration, merge request reports, CI/CD best practices, debugging failed
+  pipelines, CI security, and DevOps automation on GitLab.
 license: MIT
 metadata:
   author: Alexander Tebiev
   source: https://github.com/beeyev/skills
   homepage: https://github.com/beeyev/skills/tree/master/skills/gitlab-ci-handbook
-  version: "1.4.0"
+  version: "1.5.0"
   category: devops
   keywords: >-
     gitlab, gitlab-ci, gitlab-ci.yml, ci-cd, continuous-integration,
     continuous-deployment, pipeline, pipelines, devops, gitlab-runner,
     caching, artifacts, docker, deployment, environments, review-apps,
-    kubernetes, automation, yaml, bash, security, debugging
+    kubernetes, automation, yaml, bash, security, debugging, merge-request,
+    reports, gitlab-ui
 ---
 
 # GitLab CI Handbook
@@ -56,6 +57,7 @@ File names in this table live under `references/`.
 | Script failure | `debugging.md`, `bash-in-ci.md`; add `data-flow.md` for cache, artifact, report, or dependency-transfer failures |
 | Optimize a pipeline | `data-flow.md`, `execution-environment.md`, `orchestration.md`, `pipeline-selection.md` |
 | Pipeline graph or UI is too large | `pipeline-ui.md`, `readability.md`; add `orchestration.md` for child pipelines or matrices, `pipeline-selection.md` when reducing conditional topology, and `data-flow.md` before changing `needs` |
+| Improve GitLab UI integration | `gitlab-ui-integration.md`; add `pipeline-ui.md` for graphs, `environments.md` for deployments, `pipeline-selection.md` for releases or manual gates, and `security.md` for reports or artifacts containing sensitive data |
 | Deploy or environment work | `environments.md`, `pipeline-selection.md`, `security.md`; add `execution-environment.md` for runner, image, service, or Docker concerns and `orchestration.md` for downstream deployments |
 | Components or includes | `pipeline-structure.md`, `security.md`, and the validation section in `orchestration.md` |
 | Downstream, child, or matrix pipeline | `orchestration.md`, `data-flow.md`, `pipeline-selection.md` |
@@ -71,12 +73,13 @@ File names in this table live under `references/`.
 | `references/environments.md` | Environments and deployments; naming, grouping, URLs, tiers, and UI design; static targets and review apps; `environment:action`, `on_stop`, and `auto_stop_in`; environment-scoped variables; `resource_group` and outdated deployments; deploy freezes; protected environments and approvals; rollback; downstream deployment projects; Kubernetes dashboard metadata; environment failure signatures |
 | `references/orchestration.md` | Parent-child and multi-project pipelines; dynamic child pipelines; matrices (`parallel:matrix`); auto-cancel and retries (`interruptible`, `retry`); timeout budgeting; validating compiled configuration (CI Lint, `merged_yaml`, validation levels) |
 | `references/pipeline-ui.md` | Pipeline graphs that are too wide, tall, dense, or slow to navigate; stage vs job-dependency views; mini graphs; grouped jobs; downstream cards; choosing native GitLab structure that keeps large pipelines understandable |
+| `references/gitlab-ui-integration.md` | Mapping CI output and actions to GitLab surfaces: pipeline names; New pipeline and manual-job forms; typed inputs; confirmations; MR widgets and diff annotations; JUnit, coverage, quality, security, performance, and IaC reports; exposed artifacts; job links; child reports; Releases; UI verification |
 | `references/security.md` | Secrets storage and variable hygiene; fork MR pipelines; `CI_JOB_TOKEN` and its allowlist; OIDC `id_tokens` for cloud auth; runner isolation (privileged, shell executor); auditing third-party CI code |
 | `references/debugging.md` | A failing or missing pipeline or job with a concrete symptom: error-text lookup, debug-in-runner-order, empty-variable confusions, predefined-variable traps |
 | `references/bash-in-ci.md` | Writing or fixing `script:` / `before_script:` / `after_script:`; inline YAML vs `scripts/*.sh` decisions; `set -Eeuo pipefail`; required-env-var checks; quoting; shellcheck; why a multiline block didn't fail; how the runner executes commands |
 | `references/readability.md` | Naming jobs, stages, variables, or CI files; commenting style; making a pipeline navigable for newcomers |
 | `references/informative-logging.md` | What jobs should echo (versions, decisions) and must never echo (secrets); collapsible log sections; variable masking behavior |
-| `references/developer-experience.md` | Designing pipelines whose failures are debuggable: `workflow:name` pipeline titles; job execution headers; actionable failure messages; surfacing test reports and artifact links in MRs; diagnostic artifacts; reproducing CI failures locally |
+| `references/developer-experience.md` | Designing pipelines whose failures are debuggable: job execution headers; actionable failure messages; diagnostic artifacts; reproducing CI failures locally. Add `gitlab-ui-integration.md` for forms, reports, links, and other native UI surfaces |
 
 Secrets questions span two files: log exposure and masking in
 `informative-logging.md`, storage, tokens, and the wider threat model in

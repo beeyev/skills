@@ -4,10 +4,6 @@ Verified against: GitLab 18.11
 Sources:
 - https://archives.docs.gitlab.com/18.11/ci/debugging/ (debugging workflow and pipeline names)
 - https://archives.docs.gitlab.com/18.11/ci/yaml/#workflowname (pipeline names)
-- https://archives.docs.gitlab.com/18.11/ci/inputs/ (manual pipeline inputs)
-- https://archives.docs.gitlab.com/18.11/ci/yaml/#artifactsexpose_as (MR artifact links)
-- https://archives.docs.gitlab.com/18.11/ci/yaml/artifacts_reports/ (native reports and job annotations)
-- https://archives.docs.gitlab.com/18.11/ci/testing/unit_test_reports/ (test details and screenshots)
 - https://archives.docs.gitlab.com/18.11/ci/jobs/job_logs/ (log sections and timestamps)
 
 Optimize for three questions:
@@ -19,8 +15,9 @@ Optimize for three questions:
 Naming mechanics live in `readability.md`; log safety and section syntax
 live in `informative-logging.md`; shell behavior lives in `bash-in-ci.md`.
 Pipeline graph structure and native large-pipeline navigation live in
-`pipeline-ui.md`. This file connects them into the developer's debugging
-path.
+`pipeline-ui.md`. Forms, reports, artifact links, job annotations, releases,
+and other native surfaces live in `gitlab-ui-integration.md`. This file
+connects them into the developer's debugging path.
 
 ## Make the pipeline identifiable
 
@@ -55,11 +52,9 @@ Use a project-specific name variable. `workflow:rules:variables` are
 forwarded to downstream pipelines by default and can overwrite a downstream
 variable with the same name.
 
-Treat manually started pipelines as forms. Pipeline-level `spec:inputs`
-should have useful descriptions, safe defaults, and `options`, `type`, or
-`regex` constraints where values are bounded. See `pipeline-structure.md`
-for the input contract. A rejected input at pipeline creation is better
-than a job failing after consuming runner time.
+Treat manually started pipelines and jobs as forms. Input design, UI behavior,
+and manual-variable exposure are in `gitlab-ui-integration.md`. The reusable
+configuration contract remains in `pipeline-structure.md`.
 
 ## Give each job an execution header
 
@@ -106,20 +101,10 @@ command and line), see `bash-in-ci.md`.
 
 ## Prefer GitLab UI results over log archaeology
 
-Use structured output whenever GitLab can render it better than a log dump:
-
-- JUnit reports put failures in the MR Test summary and pipeline Tests tab.
-  Include unique test names, source-file attributes, failure output, and
-  screenshot attachments when supported. File attributes let developers
-  copy failed test names for local reruns.
-- Coverage and code-quality reports put results in MR widgets or diffs.
-- `artifacts:expose_as` gives an important result a direct MR link.
-- An `annotations` report with `external_link` adds a preview, trace, or
-  external dashboard link to the job output page.
-
-Reports do not necessarily control job status. The producing command must
-still exit non-zero when its findings should fail the job. See
-`data-flow.md` for artifact and report mechanics.
+Use structured output whenever GitLab can render it better than a log dump.
+Choose the correct native surface and preserve job-status semantics using
+`gitlab-ui-integration.md`. Artifact transfer and retention mechanics remain
+in `data-flow.md`.
 
 ## Retain bounded diagnostics
 

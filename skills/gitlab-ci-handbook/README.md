@@ -21,6 +21,8 @@ while preserving project conventions and CI security.
   retries, timeouts, validating compiled config
 - Pipeline UI: compact native GitLab graphs, grouped jobs, dependency views,
   downstream cards, and large-pipeline navigation
+- GitLab UI integration: typed pipeline and job forms, manual actions, MR
+  widgets and diff annotations, native reports, artifact links, and Releases
 - Security: secrets hygiene, fork MR pipelines, job tokens, OIDC id_tokens,
   runner isolation
 - Debugging: failure-signature catalog, symptom-to-cause tables, variable
@@ -29,8 +31,8 @@ while preserving project conventions and CI security.
   extraction, shellcheck
 - Readability: naming jobs, stages, variables, and CI files
 - Logging: collapsible sections, variable masking
-- Developer experience: designing debuggable pipelines, MR reports,
-  reproducing CI failures locally
+- Developer experience: designing debuggable pipelines and reproducing CI
+  failures locally
 
 ## Layout
 
