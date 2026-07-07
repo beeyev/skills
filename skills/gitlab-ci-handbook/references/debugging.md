@@ -140,6 +140,6 @@ https://archives.docs.gitlab.com/18.11/ci/variables/predefined_variables/
 | `CI_COMMIT_REF_NAME` / `CI_COMMIT_REF_SLUG` | Branch or tag name; the slug is DNS/cache-key safe, the name is not. |
 | `CI_PIPELINE_SOURCE` | `push`, `merge_request_event`, `schedule`, `trigger`, `pipeline`, `parent_pipeline`, `web`, `api`. Child pipelines report `parent_pipeline`, not the parent's source. |
 | `CI_OPEN_MERGE_REQUESTS` | Present in branch pipelines too when an MR is open; the duplicate-pipeline guard relies on it. |
-| `CI_ENVIRONMENT_*` | Only in jobs that declare `environment:`. |
+| `CI_ENVIRONMENT_*` | Only in jobs that declare `environment:`. Environment actions and scoped-variable behavior are in `environments.md`. |
 | `CI_REGISTRY_*` | Only when the container registry is enabled for the project. |
 | `CI_JOB_TOKEN` | Dies with the job; scope and allowlist in `security.md`. |

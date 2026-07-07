@@ -13,7 +13,10 @@ while preserving project conventions and CI security.
 - Data flow: caching and artifacts, DAGs with `needs`, test sharding,
   optimization method
 - Execution environment: runners and tags, job images, sidecar services,
-  Docker builds, environments, GitLab Pages
+  Docker builds, GitLab Pages
+- Environments and deployments: naming, tiers, review apps, lifecycle and
+  stop jobs, deployment safety, protected environments, rollback, downstream
+  deployment projects, Kubernetes metadata, and UI design
 - Orchestration: child and downstream pipelines, matrices, auto-cancel,
   retries, timeouts, validating compiled config
 - Pipeline UI: compact native GitLab graphs, grouped jobs, dependency views,

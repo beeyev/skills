@@ -6,14 +6,13 @@ Sources:
 - https://archives.docs.gitlab.com/18.11/ci/docker/using_docker_images/
 - https://archives.docs.gitlab.com/18.11/ci/services/
 - https://archives.docs.gitlab.com/18.11/ci/docker/using_docker_build/
-- https://archives.docs.gitlab.com/18.11/ci/environments/
-- https://archives.docs.gitlab.com/18.11/ci/resource_groups/
 - https://archives.docs.gitlab.com/18.11/ci/yaml/#pages
 - https://archives.docs.gitlab.com/18.11/user/project/pages/
 - https://docs.docker.com/engine/release-notes/29/ (Docker release used in the example)
 
 Where a job runs and what surrounds it: runner selection, the job
-image, sidecar services, Docker builds, environments, and Pages.
+image, sidecar services, Docker builds, and Pages. Environment and
+deployment guidance lives in `environments.md`.
 Examples assume Free tier and Linux runners; executor requirements are
 flagged per pattern.
 
@@ -162,75 +161,11 @@ build:docker-image:
   rootless), which trade Docker CLI compatibility for a better security
   posture.
 
-## Environments, review apps, and deploy serialization
+## Environments and deployments
 
-**When:** any job that deploys. Declaring `environment` gives a deploy
-history, the environments UI, environment-scoped variables, and
-stop/cleanup hooks.
-
-Static environment with a manual gate (see the manual-gates pattern in `pipeline-selection.md`):
-
-```yaml
-deploy:staging:
-  stage: deploy
-  variables:
-    DEPLOY_ENV: staging
-  script: ./scripts/ci/deploy.sh
-  environment:
-    name: staging
-    url: https://staging.example.com
-  resource_group: staging
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: manual
-```
-
-Dynamic review app per MR, with cleanup:
-
-```yaml
-deploy:review:
-  stage: deploy
-  script: ./scripts/ci/deploy-review.sh
-  resource_group: review-$CI_COMMIT_REF_SLUG
-  environment:
-    name: review/$CI_COMMIT_REF_SLUG
-    url: https://$CI_ENVIRONMENT_SLUG.review.example.com
-    on_stop: stop:review
-    auto_stop_in: 1 week
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-
-stop:review:
-  stage: deploy
-  script: ./scripts/ci/destroy-review.sh
-  resource_group: review-$CI_COMMIT_REF_SLUG
-  environment:
-    name: review/$CI_COMMIT_REF_SLUG
-    action: stop
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: manual
-      allow_failure: true
-```
-
-- `on_stop` + `action: stop` wires the stop job to the environment; it
-  runs on manual stop, on `auto_stop_in` expiry, and when the MR merges
-  or the branch is deleted.
-- The matching `resource_group` values make the Environments UI run the
-  `on_stop` job when a user stops the environment. `allow_failure: true`
-  keeps this manual cleanup action from blocking the MR pipeline.
-- The stop job also fires after the source branch is deleted, when
-  checkout can fail; the docs recommend `GIT_STRATEGY: none` or `empty`
-  for stop jobs. That requires the cleanup command to be available in
-  the job image or fetched another way. The example checks out the repo
-  because its cleanup script lives in `scripts/ci/`; either accept that
-  the stop job can fail on a deleted branch, or bake the cleanup logic
-  into the job image and set `GIT_STRATEGY: empty`.
-- `resource_group: <name>` serializes jobs across pipelines: two
-  deploys to the same target never overlap. The default process mode is
-  `unordered`, so execution order is not guaranteed. Configure
-  `oldest_first`, `newest_first`, or `newest_ready_first` through the
-  resource groups API when ordering matters.
+For environment or deployment work, read `environments.md`. It owns naming,
+tiers, review apps, lifecycle, deployment safety, protection, rollback,
+downstream deployment projects, Kubernetes metadata, and UI design.
 
 ## GitLab Pages
 
