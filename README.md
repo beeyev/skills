@@ -8,6 +8,7 @@ SKILL.md-compatible agents.
 | Skill | Description |
 |---|---|
 | [gitlab-ci-handbook](skills/gitlab-ci-handbook/) | GitLab CI/CD knowledge base: `.gitlab-ci.yml` configuration, pipeline optimization, runners, caching, artifacts, and DevOps best practices |
+| [xquik-x-data](skills/xquik-x-data/) | Xquik REST API, remote MCP, and webhook guidance for X data workflows |
 
 ## Installation
 
@@ -24,6 +25,10 @@ Single skill:
 
 ```bash
 npx skills add beeyev/skills --skill gitlab-ci-handbook
+```
+
+```bash
+npx skills add beeyev/skills --skill xquik-x-data
 ```
 
 ### Claude Code plugin

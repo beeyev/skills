@@ -1,0 +1,4 @@
+interface:
+  display_name: "Xquik X Data"
+  short_description: "Build X data workflows with Xquik APIs and MCP"
+  default_prompt: "Use $xquik-x-data to design a source-checked X data workflow."

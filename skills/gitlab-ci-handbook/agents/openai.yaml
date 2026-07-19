@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitLab CI Handbook"
+  short_description: "Build and debug production GitLab CI pipelines"
+  default_prompt: "Use $gitlab-ci-handbook to review and improve this GitLab CI pipeline."
